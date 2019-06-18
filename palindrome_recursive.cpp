@@ -10,9 +10,9 @@ bool Palindrome(string word) {
     if (word.length() <= 1)
         return true;
     if (word.at(0) != word[word.length() - 1])
-        return false; 
+        return false;
     word = word.substr(1,  word.length() - 2);
-    return Palindrome(word);        
+    return Palindrome(word);
 }
 
 int main () {
@@ -20,7 +20,8 @@ int main () {
     cout << "Please enter your word : ";
     cin >> word;
     if (Palindrome(word))
-        cout << "This word is palindrome";
+        cout << "This word is palindrome" << endl;
     else
-        cout << "This word is not palindrome";
+        cout << "This word is not palindrome" << endl;
+    return 0;
 }

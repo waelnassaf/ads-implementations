@@ -3,5 +3,5 @@
 ## Who is this repo for?
 > This repository was built mainly for AIU | Faculty of Informatics & Communication Engineering Students.
 
-However, it contains most taught algorithms in Computer Science or any related field.
+> However, it contains most taught algorithms in Computer Science or any related field.
 

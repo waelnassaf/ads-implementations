@@ -54,6 +54,7 @@ int main() {
     sl.display();
     sl.Pop();
     sl.display();
+    
     return 0;
 }
 

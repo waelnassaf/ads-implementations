@@ -8,7 +8,7 @@ private:
     int rear;
     int data[MAX_SIZE];
 public:
-    Queue() {   front = -1; rear = -1; }
+    Queue() {   front = -1; rear = -1;   }
     bool isEmpty();
     bool isFull();
     void Enqueue(int);

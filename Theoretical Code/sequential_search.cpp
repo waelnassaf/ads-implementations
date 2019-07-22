@@ -1,20 +1,17 @@
 #include <iostream>
 using namespace std;
 
-int seq_search(int a[], int item, int n){
-    for (int i = 0; i < n; i++)
-        if (a[i] == item){
+int seqSearch(int arr[], int s, int item) {
+    for (int i = 0; i < s; i++)
+        if (arr[i] == item)
             return i;
-            break;
-        }
     return -1;
 }
 
-int main()
-{
-    int arr[] = {10, 21, 29, 12, 8};
-
-    cout << seq_search(arr, 29, 5) << endl;
-
-    return 0;
+int main() {
+    
+    int array[] = {21, 44, 62, 14, 88};
+    int size = sizeof(array)/sizeof(array[0]);
+    cout << seqSearch(array, size, 88) << endl;
+    
 }

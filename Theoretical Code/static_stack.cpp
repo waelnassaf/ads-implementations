@@ -1,57 +1,57 @@
-// A contribution by Wael Assaf.
 #define STACK_MAX 100
 #include<iostream>
 #include<string>
 using namespace std;
+
 template<class T>
 class Stack {
 private:
-    T data[STACK_MAX];
+    T data[STACK_MAX];
     int size;
 public:
-    Stack() {size = 0;} // constructor initializing stack
-     
-    bool is_empty() { return (size == 0); }
-     
-    bool is_full() { return (size == STACK_MAX); } 
-     
+    Stack() {   size = 0;  }
+
+    bool is_empty() { return size == 0; }
+
+    bool is_full() { return size == STACK_MAX; }
+
     T top() {
-    if (size != 0){
-        cout << "The element located at the top is:" << endl; 
-        return data[size - 1];
-    } else
-        return -1;
+        if (size != 0) return data[size - 1];
+        else return -1;
     }
- 
+
     void push(T item) {
-    if (size < STACK_MAX){
-        data[size] = item;
-        size++;
-    } else
-        cout << "sorry the stack is full" << endl;
+        if (size < STACK_MAX){
+            data[size] = item;
+            size++;
+        } else
+            cout << "Sorry, the stack is full." << endl;
     }
+
     void pop() {
-    if (size == 0)
-        cout << "sorry the stack is empty" << endl;
-    else
-        size--;
+        if (size == 0)
+            cout << "Sorry, the stack is empty." << endl;
+        else
+            size--;
     }
 };
- 
+
 int main() {
-     
+
     Stack<int> s;
+
+    cout << s.is_empty() << endl;
+    cout << s.is_full() << endl;
 
     s.push(8);
     s.push(80);
     s.push(81);
     s.push(89);
-     
-    cout << s.top();
-     
+
+    cout << s.top() << endl;
+
     s.pop();
     cout << s.top();
-     
-     
+
     return 0;
 }

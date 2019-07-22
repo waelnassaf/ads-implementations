@@ -1,30 +1,36 @@
 #include <iostream>
 using namespace std;
 
-int binary_search(int a[], int size, int x) {
-    int low  = 0;
-    int high = size - 1;
+bool IterativeBinarySearch(int arr[], int size, int item) {
+    int min = 0;
+    int max = size - 1;
     int mid;
-
-    while (low <= high) {
-        mid = (low + high) / 2;
-        if (a[mid] < x)
-            low = mid + 1;
-        else if (a[mid] > x)
-            high  = mid - 1;
+    while (min <= max) {
+        mid = (min + max) / 2;
+        if (arr[mid] > item)
+            max = mid - 1;
+        else if (arr[mid] < item)
+            min = mid + 1;
         else
-            return mid;
+            return true;
     }
-    return -1;
+    return false;
 }
-
+bool RecursiveBinarySearch(int arr[], int item, int min, int max) {
+    if (min > max) return false;
+    int mid = (min + max) / 2;
+    if (arr[mid] > item) return RecursiveBinarySearch(arr, item, min, mid - 1);
+    else if (arr[mid] < item) return RecursiveBinarySearch(arr, item, mid + 1, max);
+    else return true;
+}
 
 int main()
 {
 
-    int arr[] = {12, 32, 39, 88, 120, 1211};
-    int s = sizeof(arr)/sizeof(arr[0]);
-    cout << binary_search(arr, s, 39) << endl;
+    int arr[] = {21, 65, 99, 140, 190};
+    
+    cout << IterativeBinarySearch(arr, 5, 66) << endl;
+    cout << RecursiveBinarySearch(arr, 140, 0, 5) << endl;
 
     return 0;
 }

@@ -23,9 +23,11 @@ public:
 
         if (front == NULL)
             front = rear = temp;
-        else
+        else {
             rear->next = temp;
-        rear = temp;
+            rear = temp;
+        }
+            
     }
 
     bool dequeue() {

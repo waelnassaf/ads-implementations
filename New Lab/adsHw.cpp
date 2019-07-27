@@ -13,7 +13,6 @@
 | * Create dynamic array of students.
 | * Read their data from the console.
 | * Print the amount which should be paid by each student.
-|
 */
 
 #include <iostream>

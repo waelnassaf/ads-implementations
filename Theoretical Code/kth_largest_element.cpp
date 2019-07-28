@@ -21,9 +21,7 @@ int main()
     cin >> k;
     
     cout << "The " << k << " largest element is: " << endl;
-    cout << arr[k-1] << endl;
-    
-    
+    cout << arr[k-1] << endl;    
     
     return 0;
 }

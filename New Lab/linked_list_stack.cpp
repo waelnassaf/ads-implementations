@@ -2,7 +2,6 @@
 #include <string>
 using namespace std;
 
-
 class Astro {
 public:
     string name;
@@ -10,6 +9,7 @@ public:
     int year;
     int planetCount;
     string* planets;
+
     Astro(string name, string country, int year) {
         this->name = name;
         this->country = country;
@@ -39,50 +39,52 @@ public:
         a = Astro();
         this->next = 0;
     }
+
     void addPlanet(string name) {
         a.planets[a.planetCount++] = name;
     }
 };
 
 class List {
-
 public:
-
     Node* head;
     Node* tail;
 
     List() {    head = tail = 0;    }
 
-
     void AddToHead(string name, string country, int year, string p[], int size) {
         if (head == 0) head = tail = new Node(name, country, year);
-
         else {
             Node* temp = new Node(name, country, year);
             temp->next = head;
             head = temp;
-//          head = new Node(name, country, year, head);
+//            head = new Node(name, country, year, head); Only this line could do.
         }
 
-        if (size > 100) size = 100;
+        size = size > 100 ? 100 : size;
+
         for (int i = 0; i < size; ++i) {
-           head->addPlanet(p[i]);
+            head->addPlanet(p[i]);
         }
+
     }
+
     void AddToTail(string name, string country, int year, string p[], int size) {
         if (head == 0) head = tail = new Node(name, country, year);
-
         else {
             tail->next = new Node(name, country, year);
             tail = tail->next;
             tail->next = 0;
         }
 
-        if (size > 100) size = 100;
+        size = size > 100 ? 100 : size;
+
         for (int i = 0; i < size; ++i) {
-           tail->addPlanet(p[i]);
+            tail->addPlanet(p[i]);
         }
+
     }
+
 
     bool DeleteHead() {
         if (head == 0) return false;
@@ -90,23 +92,21 @@ public:
             delete head;
             head = tail = 0;
             return true;
-        }
-        else {
+        } else {
             Node* temp = head->next;
             delete head;
             head = temp;
             return true;
         }
     }
-    bool DeleteTail() {
 
+    bool DeleteTail() {
         if (head == 0) return false;
         else if (head == tail) {
             delete tail;
             head = tail = 0;
             return true;
-        }
-        else {
+        } else {
             Node* temp = head;
             while (temp->next != tail)
                 temp = temp->next;
@@ -117,24 +117,21 @@ public:
         }
     }
 
-
-
-    // A function that takes a planet name as input
-    // then removes all Astronauts that visited this planet.
-
-
-    void removeAstro(string planetName) {
+    // A function that takes a planet name and remove all astronauts
+    // that have visited this planet.
+    void RemoveAstro(string name) {
         Node* prev = 0;
         Node* curr = head;
+
         while (curr != 0) {
             bool found = false;
             for (int i = 0; i < curr->a.planetCount; ++i) {
-                if (curr->a.planets[i] == planetName) {
+                if (curr->a.planets[i] == name) {
                     found = true;
                     break;
                 }
             }
-            if (found == true) {
+            if (found) {
                 if (curr == head) {
                     if (head == tail) {
                         delete head;
@@ -157,14 +154,18 @@ public:
         }
     }
 
-
-
     void Print() {
         Node* temp = head;
         while (temp != 0) {
-            cout << temp->a.name << endl;
-            for (int i = 0; i < temp->a.planetCount; ++i)
-                  cout << "\t" << temp->a.planets[i] << endl;
+            cout << "++++++++++++++++" << endl;
+            cout << "Name: " << temp->a.name << endl;
+            cout << "Country: " << temp->a.country << endl;
+            cout << "Year: " << temp->a.year << endl;
+            cout << "Planets: " << endl;
+            for (int i = 0; i < temp->a.planetCount; ++i) {
+                cout << "\t" << temp->a.planets[i] << endl;
+            }
+            cout << "++++++++++++++++\n" << endl;
             temp = temp->next;
         }
     }
@@ -173,59 +174,62 @@ public:
 class Stack {
 public:
     List l;
-
     void Push(string name, string country, int year, string p[], int size) {
         l.AddToHead(name, country, year, p, size);
     }
-
     bool Pop() {
         return l.DeleteHead();
     }
-
     Astro Top() {
         return l.head->a;
     }
-
     void Clear() {
-        while (l.head != 0)
+        while (l.head)
             l.DeleteHead();
     }
-
     bool IsEmpty() {
         return l.head == 0;
     }
-
-
     void Print() {
         l.Print();
     }
-
 };
-
 
 int main() {
 
-    List l1;
+    List l;
 
     string p1[3] = {"Ploto", "Uranus", "Mars"};
     string p2[3] = {"Sun", "Moon", "Uranus"};
-
-    l1.AddToHead("Wael", "Beirut", 2033, p1, 3);
-    l1.AddToHead("Sami", "Cairo", 1988, p2, 3);
-
-    l1.Print();
-    l1.removeAstro("Sun");
-
-    cout << "After deletion .. " << endl;
-    l1.Print();
+    string p3[4] = {"Earth", "Jupiter", "Saturn", "Mercury"};
 
 
-    cout<<"stack is coming soon"<<endl;
+    l.AddToHead("Wael", "Beirut", 2033, p1, 3);
+    l.AddToHead("Rami", "Cairo", 1988, p2, 3);
+    l.AddToTail("Hadi", "Damascus", 2099, p3, 4);
+
+//    l.Print();
+//
+//    l.DeleteHead();
+//    l.DeleteTail();
+//
+//
+//    cout << "----------------" << endl;
+//    l.Print();
+
+    l.RemoveAstro("Uranus");
+
+    cout << "----------------" << endl;
+    l.Print();
+
+    cout<<"Stack is coming soon..... ... .. .. . .. ."<<endl;
     Stack s;
-    s.Push("omar","senegal",2000,p2,3);
+
+    s.Push("Omar","Senegal",2000,p2,3);
     s.Push("khaled","Syria",1950,p1,3);
-    s.Push("Abdo","Syria",1950,p2,3);
-    s.Push("Hussam","Syria",1950,p1,3);
+    s.Push("Abdo","Egypt",1950,p2,3);
+    s.Push("Hussam","Somalia",1950,p3,3);
+
     s.Print();
     Astro temp = s.Top();
     cout<<temp.name<<endl;

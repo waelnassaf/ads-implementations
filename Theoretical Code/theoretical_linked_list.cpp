@@ -1,46 +1,49 @@
 #include <iostream>
 using namespace std;
+
 class Node {
 public:
     double data;
     Node* next;
 };
+
 class List {
+private:
+    Node* head;
 public:
-    Node *head;
-    List() { head = NULL; }
+    List() {    head = NULL;    }
     ~List();
-    bool IsEmpty()    {        return head == NULL;    }
-    bool InsertNode(int, double);
+    bool IsEmpty() {    return head == NULL;    }
+    bool InsertNode(double, int);
     int FindNode(double);
     int DeleteNode(double);
     void DisplayList();
 };
 
-int MaxAllowedIndex(Node* head) {
-    int maxIndex = 0;
-    Node* temp = head;
-    while (temp != 0) {
+int MaxAllowedIndex(Node* temp) {
+    int MaxIndex = 0;
+    while (temp != NULL) {
         temp = temp->next;
-        maxIndex++;
+        MaxIndex++;
     }
-    return maxIndex;
+    return MaxIndex;
 }
 
-bool List::InsertNode(int index, double x) {
+bool List::InsertNode(double data, int index = 0) {
     if (index < 0) return false;
-    if (index > 0 && head == NULL) return false;
+//    if (index > 0 && head == NULL) return false; Old Fashioned.
+    index = index > MaxAllowedIndex(head) ? MaxAllowedIndex(head) : index;
     Node* newNode = new Node;
-    newNode->data = x;
+    newNode->data = data;
+
     if (index == 0) {
         newNode->next = head;
         head = newNode;
     }
-    if(index >= 1) {
+
+    else if (index >= 1) {
         int currIndex = 1;
         Node* currNode = head;
-        index = index >= MaxAllowedIndex(head) ? MaxAllowedIndex(head) : index;
-
         while (currNode != NULL && currIndex < index) {
             currNode = currNode->next;
             currIndex++;
@@ -51,10 +54,10 @@ bool List::InsertNode(int index, double x) {
     return true;
 }
 
-int List::FindNode(double x){
+int List::FindNode(double data) {
     Node* currNode = head;
     int currIndex = 0;
-    while(currNode!= NULL && currNode->data != x){
+    while (currNode != NULL && currNode->data != data) {
         currNode = currNode->next;
         currIndex++;
     }
@@ -63,23 +66,23 @@ int List::FindNode(double x){
     return -1;
 }
 
-int List::DeleteNode(double x) {
-    Node* prevNode = NULL;
+int List::DeleteNode(double data) {
     Node* currNode = head;
+    Node* prevNode = NULL;
     int currIndex = 0;
-    while (currNode != NULL && currNode->data != x){
+    while (currNode != NULL && currNode->data != data) {
         prevNode = currNode;
         currNode = currNode->next;
         currIndex++;
     }
-    if (currNode) {
-        if (prevNode) {
+    if (currNode != NULL) {
+        if (prevNode != NULL) {
             prevNode->next = currNode->next;
             delete currNode;
-        }
-        else {
-            head = currNode->next;
-            delete currNode;
+        } else {
+            Node* temp = head->next;
+            delete head;
+            head = temp;
         }
         return currIndex;
     }
@@ -88,18 +91,23 @@ int List::DeleteNode(double x) {
 
 void List::DisplayList() {
     int counter = 0;
-    Node* currNode = head;
-    while (currNode != NULL) {
-        cout << currNode->data << endl;
-        currNode = currNode->next;
+    if (IsEmpty()) {
+        cout << "The list is empty\n";
+        return;
+    }
+    Node* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << "->";
+        temp = temp->next;
         counter++;
     }
-    cout << "Number of nodes in the list: " << counter << endl;
+    cout << endl;
+    cout << "Number of nodes are: " << counter << endl;
 }
 
 List::~List() {
     Node* curr = head;
-    while (curr != NULL){
+    while (curr != NULL) {
         Node* next = curr->next;
         delete curr;
         curr = next;
@@ -107,23 +115,27 @@ List::~List() {
     head = 0;
 }
 
-int main () {
+int main() {
 
-    List l1;
+    List l;
+    l.InsertNode(10.5, 0);
+    l.InsertNode(20.5, 1);
+    l.InsertNode(30.5, 7);
+    l.InsertNode(40.5, 2);
 
-    l1.InsertNode(0, 10);
-    l1.InsertNode(9, 20);
-    l1.InsertNode(1, 30);
+    cout << "-------------" << endl;
+    l.DisplayList();
 
-    cout << l1.FindNode(20) << endl;
-    cout << l1.DeleteNode(20) << endl;
+    l.DeleteNode(10.5);
+    cout << "-------------" << endl;
+    l.DisplayList();
 
-    l1.DisplayList();
+    cout << "+++++++++" << endl;
+    cout << l.FindNode(30.5) << endl;
 
-    l1.~List();
-
-    cout << "———After Deletion———\n" << endl;
-    l1.DisplayList();
+    cout << ",,,,,,,,,,,," << endl;
+    l.~List();
+    l.DisplayList();
 
     return 0;
 }

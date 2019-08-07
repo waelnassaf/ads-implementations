@@ -11,7 +11,7 @@
 | Input:
 |   * Two Sorted Linked Lists.
 | Output:
-|   * New list containing maximum sum path.
+|   * New list containing maximum sum path. (Still not solved)
 |   * Location of switches between the 2 lists.
 */
 #include <iostream>

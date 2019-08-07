@@ -11,6 +11,6 @@ If you are taking ADS Class 20183 (You may expect some subtle differences for fu
 ```
 
 
-#### Theoretical Doctor: Fayez Kiwan ####
-#### Lab Doctor: Mhd Tarek Almalek ####
+#### Theoretical Doctor: Fayez Kiwan. ####
+#### Lab Doctor: Mhd Tarek Almalek. ####
 

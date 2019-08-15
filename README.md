@@ -5,7 +5,7 @@
 > However, it contains most taught algorithms in Computer Science or any related field.
 
 If you are taking ADS Class 20183 (You may expect some subtle differences for future semesters) then you are interested in the following directories: 
-```bash
+```c
 /New Lab
 /Theoretical Code
 ```
